@@ -14,7 +14,11 @@ class OrderBook:
     class Bid(Order):
         pass
 
+    asks: list[Ask]
+    bids: list[Bid]
+
     def __init__(self):
+
         self.asks = []
         self.bids = []
 
@@ -34,7 +38,7 @@ class OrderBook:
         err = self.__perform_checks(price, quantity)
         if not err:
             bid = OrderBook.Bid(price, quantity)
-            self.asks.append(bid)
+            self.bids.append(bid)
             print('bid added')
             return bid
 
