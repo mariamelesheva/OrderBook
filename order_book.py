@@ -59,7 +59,7 @@ class OrderBook:
             return True
 
         if type(quantity) is not int:
-            print(f'wrong quantity type: {type(price)}')
+            print(f'wrong quantity type: {type(quantity)}')
             return True
         if quantity <= 0:
             print(f'quantity must be greater than 0')
