@@ -39,6 +39,7 @@ class OrderBook:
         if not err:
             bid = Bid(price, quantity)
             self.asks.append(bid)
+            print('bid added')
             return bid
 
     def create_ask(self, price: float, quantity: int):
@@ -46,18 +47,19 @@ class OrderBook:
         if not err:
             ask = Ask(price, quantity)
             self.asks.append(ask)
+            print('ask added')
             return ask
 
     def __perform_checks(self, price, quantity):
-        if type(price) is not float or not int:
-            print(f'wrong price field type: {type(price)}')
+        if type(price) is not float and type(price) is not int:
+            print(f'wrong price type: {type(price)}')
             return True
         if price <= 0:
             print(f'price must be greater than 0')
             return True
 
         if type(quantity) is not int:
-            print(f'wrong quantity field type: {type(price)}')
+            print(f'wrong quantity type: {type(price)}')
             return True
         if quantity <= 0:
             print(f'quantity must be greater than 0')
@@ -84,6 +86,5 @@ if __name__ == '__main__':
 
     orders_builder.create_ask(price='123', quantity=10)
     orders_builder.create_ask(price=600, quantity='777')
-
 
     print(orders_builder.get_sorted_market_data())
