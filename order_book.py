@@ -1,22 +1,18 @@
-class Order:
-
-    def __init__(self, price: float, quantity: int):
-        self.price = price
-        self.quantity = quantity
-
-    def get_data_dictionary(self):
-        return {"price": self.price, "quantity": self.quantity}
-
-
-class Ask(Order):
-    pass
-
-
-class Bid(Order):
-    pass
-
-
 class OrderBook:
+    class Order:
+
+        def __init__(self, price: float, quantity: int):
+            self.price = price
+            self.quantity = quantity
+
+        def get_data_dictionary(self):
+            return {"price": self.price, "quantity": self.quantity}
+
+    class Ask(Order):
+        pass
+
+    class Bid(Order):
+        pass
 
     def __init__(self):
         self.asks = []
@@ -27,9 +23,9 @@ class OrderBook:
                 "bids": list(map(lambda x: x.get_data_dictionary(), sorted(self.bids, key=lambda order: order.price)))}
 
     def remove(self, order):
-        if type(order) is Ask:
+        if type(order) is OrderBook.Ask:
             self.asks.remove(order)
-        elif type(order) is Bid:
+        elif type(order) is OrderBook.Bid:
             self.bids.remove(order)
         else:
             print(f'wrong order type: {type(order)}')
@@ -37,7 +33,7 @@ class OrderBook:
     def create_bid(self, price: float, quantity: int):
         err = self.__perform_checks(price, quantity)
         if not err:
-            bid = Bid(price, quantity)
+            bid = OrderBook.Bid(price, quantity)
             self.asks.append(bid)
             print('bid added')
             return bid
@@ -45,7 +41,7 @@ class OrderBook:
     def create_ask(self, price: float, quantity: int):
         err = self.__perform_checks(price, quantity)
         if not err:
-            ask = Ask(price, quantity)
+            ask = OrderBook.Ask(price, quantity)
             self.asks.append(ask)
             print('ask added')
             return ask
