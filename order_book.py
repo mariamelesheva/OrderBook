@@ -41,6 +41,8 @@ class OrderBook:
             self.bids.append(bid)
             print('bid added')
             return bid
+        else:
+            print('bid was not added')
 
     def create_ask(self, price: float, quantity: int):
         err = self.__perform_checks(price, quantity)
@@ -49,6 +51,8 @@ class OrderBook:
             self.asks.append(ask)
             print('ask added')
             return ask
+        else:
+            print('ask was not added')
 
     def __perform_checks(self, price, quantity):
         if type(price) is not float and type(price) is not int:

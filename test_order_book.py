@@ -130,14 +130,14 @@ class TestBidQuantity:
 
     def test_create_bid_quantity_negative(self):
         order_book = OrderBook()
-        bid = order_book.create_ask(5, -5)
+        bid = order_book.create_bid(5, -5)
         assert bid is None
         assert len(order_book.bids) == 0
         assert len(order_book.asks) == 0
 
     def test_create_bid_quantity_wrong_type(self):
         order_book = OrderBook()
-        bid = order_book.create_ask(66, [1])
+        bid = order_book.create_bid(66, [1])
         assert bid is None
         assert len(order_book.bids) == 0
         assert len(order_book.asks) == 0
