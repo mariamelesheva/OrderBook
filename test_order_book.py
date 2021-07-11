@@ -139,21 +139,22 @@ class TestRemoveOrder:
         for bid in self.bids:
             assert bid in self.order_book.bids
 
-    class TestGetOrder:
-        def setup(self):
-            self.order_book = OrderBook()
 
-        def test_get_order(self):
-            order1 = self.order_book.create_order(100.5, 10, OrderType.ASK)
-            order2 = self.order_book.create_order(100.5, 10, OrderType.BID)
-            order_by_id = self.order_book.get_order_by_id(order1.id)
-            assert order_by_id == order1
-            order_by_id2 = self.order_book.get_order_by_id(order2.id)
-            assert order_by_id2 == order2
+class TestGetOrder:
+    def setup(self):
+        self.order_book = OrderBook()
 
-        @pytest.mark.parametrize("order_id",
-                                 [2276700285232,
-                                  '2276700285232'])
-        def test_get_order_by_wrong_id(self, order_id):
-            order_by_id = self.order_book.get_order_by_id(order_id)
-            assert order_by_id is None
+    def test_get_order(self):
+        order1 = self.order_book.create_order(100.5, 10, OrderType.ASK)
+        order2 = self.order_book.create_order(100.5, 10, OrderType.BID)
+        order_by_id = self.order_book.get_order_by_id(order1.id)
+        assert order_by_id == order1
+        order_by_id2 = self.order_book.get_order_by_id(order2.id)
+        assert order_by_id2 == order2
+
+    @pytest.mark.parametrize("order_id",
+                             [2276700285232,
+                              '2276700285232'])
+    def test_get_order_by_wrong_id(self, order_id):
+        order_by_id = self.order_book.get_order_by_id(order_id)
+        assert order_by_id is None
