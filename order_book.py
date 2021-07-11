@@ -13,6 +13,7 @@ class OrderBook:
             self.price = price
             self.quantity = quantity
             self.order_type = order_type
+            self.id = id(self)
 
         def get_data_dictionary(self):
             return {"price": self.price, "quantity": self.quantity}
@@ -25,7 +26,7 @@ class OrderBook:
         return {"asks": list(map(lambda x: x.get_data_dictionary(), self.asks)),
                 "bids": list(map(lambda x: x.get_data_dictionary(), self.bids))}
 
-    def insert_order(self, orders_list: list, order: Order):
+    def __insert_order(self, orders_list: list, order: Order):
         index = 0
         orders_length = len(orders_list)
         if orders_length == 0:
@@ -61,7 +62,33 @@ class OrderBook:
 
         order = OrderBook.Order(price, quantity, order_type)
         if order.order_type == OrderType.ASK:
-            self.insert_order(self.asks, order)
+            self.__insert_order(self.asks, order)
         else:
-            self.insert_order(self.bids, order)
+            self.__insert_order(self.bids, order)
         return order
+
+    def get_order_by_id(self, order_id: int):
+        if type(order_id) is not int:
+            print('wrong type order id')
+            return
+        for order in self.asks:
+            if order.id == order_id:
+                return order
+        for order in self.bids:
+            if order.id == order_id:
+                return order
+        print(f'order not found by id {order_id}')
+        return
+
+    def remove_order_by_id(self, order_id: int):
+        if type(order_id) is not int:
+            print('wrong type order id')
+            return
+        for order in self.asks:
+            if order.id == order_id:
+                self.asks.remove(order)
+                return
+        for order in self.bids:
+            if order.id == order_id:
+                self.bids.remove(order)
+                return
