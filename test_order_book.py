@@ -108,7 +108,7 @@ class TestRemoveOrder:
         self.bids_start_len = len(self.order_book.bids)
 
     @pytest.mark.parametrize("index",
-                             [0, 3, 4])
+                             [0, 1, 2, 3, 4])
     def test_remove_ask(self, index):
         self.order_book.remove_order_by_id(self.asks[index].id)
         assert self.asks[index] not in self.order_book.asks
@@ -129,7 +129,7 @@ class TestRemoveOrder:
         assert len(self.order_book.bids) == 0
 
     @pytest.mark.parametrize("index",
-                             [0, 3, 3])
+                             [0, 1, 2, 3])
     def test_remove_bid(self, index):
         self.order_book.remove_order_by_id(self.bids[index].id)
         assert self.bids[index] not in self.order_book.bids
@@ -146,13 +146,15 @@ class TestGetOrder:
     def setup(self):
         self.order_book = OrderBook()
 
-    def test_get_order(self):
-        order1 = self.order_book.create_order(100.5, 10, OrderType.ASK)
-        order2 = self.order_book.create_order(100.5, 10, OrderType.BID)
-        order_by_id = self.order_book.get_order_by_id(order1.id)
-        assert order_by_id == order1
-        order_by_id2 = self.order_book.get_order_by_id(order2.id)
-        assert order_by_id2 == order2
+    def test_get_ask(self):
+        ask = self.order_book.create_order(100.5, 10, OrderType.ASK)
+        ask_by_id = self.order_book.get_order_by_id(ask.id)
+        assert ask_by_id == ask
+
+    def test_get_bid(self):
+        bid = self.order_book.create_order(100.5, 10, OrderType.BID)
+        bid_by_id = self.order_book.get_order_by_id(bid.id)
+        assert bid_by_id == bid
 
     @pytest.mark.parametrize("order_id",
                              [2276700285232,
