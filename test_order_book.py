@@ -66,12 +66,14 @@ class TestGetMarketData:
         self.order_book.create_order(300, 400, OrderType.BID)
         self.order_book.create_order(60, 1, OrderType.ASK)
         self.order_book.create_order(100.4, 4, OrderType.ASK)
+        self.order_book.create_order(60, 2, OrderType.ASK)
         self.order_book.create_order(100.5, 10, OrderType.ASK)
         self.order_book.create_order(60.6, 4, OrderType.BID)
         self.order_book.create_order(100.5, 10, OrderType.BID)
         self.order_book.create_order(100.5, 9, OrderType.ASK)
 
         orders_dictionary = {"asks": [{"price": 60, "quantity": 1},
+                                      {"price": 60, "quantity": 2},
                                       {"price": 100.4, "quantity": 4},
                                       {"price": 100.5, "quantity": 10},
                                       {"price": 100.5, "quantity": 10},
